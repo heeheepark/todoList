@@ -1,5 +1,6 @@
 package org.example.todolist.todo.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.service.TodoService;
@@ -17,7 +18,7 @@ public class TodoController {
     @PostMapping("users/{userId}/todos")
     public ResponseEntity<TodoCreateResponse> create(
             @PathVariable Long userId,
-            @RequestBody TodoCreateRequest request
+            @Valid @RequestBody TodoCreateRequest request
     ) {
         return ResponseEntity.ok(todoService.save(userId, request));
     }
@@ -41,7 +42,7 @@ public class TodoController {
     public ResponseEntity<TodoUpdateResponse> update(
             @PathVariable Long userId,
             @PathVariable Long todoId,
-            @RequestBody TodoUpdateRequest request
+            @Valid @RequestBody TodoUpdateRequest request
     ) {
         return ResponseEntity.ok(todoService.update(userId, todoId, request));
     }

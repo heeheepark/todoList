@@ -1,6 +1,7 @@
 package org.example.todolist.user.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class User extends BaseEntity {
     private String name;
 
     @Column(unique = true)
+    @Email
     private String email;
 
     @Size(min = 8, message = "비밀번호는 8자리 이상이어야 합니다.")
