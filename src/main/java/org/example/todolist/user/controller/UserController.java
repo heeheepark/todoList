@@ -1,9 +1,7 @@
 package org.example.todolist.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.todolist.user.dto.UserCreateRequest;
-import org.example.todolist.user.dto.UserCreateRespone;
-import org.example.todolist.user.dto.UserGetResponse;
+import org.example.todolist.user.dto.*;
 import org.example.todolist.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +31,13 @@ public class UserController {
             @PathVariable Long userId
     ) {
         return ResponseEntity.ok(userService.getOne(userId));
+    }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<UserUpdateResponse> update(
+            @PathVariable Long userId,
+            @RequestBody UserUpdateRequest request
+    ) {
+        return ResponseEntity.ok(userService.update(userId, request));
     }
 }
