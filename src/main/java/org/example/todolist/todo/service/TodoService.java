@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.entity.Todo;
 import org.example.todolist.todo.repository.TodoRepository;
+import org.example.todolist.user.entity.User;
+import org.example.todolist.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,15 +17,20 @@ import java.util.List;
 public class TodoService {
 
     private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public TodoCreateResponse save(TodoCreateRequest request) {
-        Todo todo = new Todo(request.getUsername(), request.getTitle(), request.getContent());
+    public TodoCreateResponse save(Long userId, TodoCreateRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 유저입니다")
+        );
+
+        Todo todo = new Todo(user, request.getTitle(), request.getContent());
         Todo saveTodo = todoRepository.save(todo);
 
         return new TodoCreateResponse(
                 saveTodo.getId(),
-                saveTodo.getUsername(),
+                saveTodo.getUser(),
                 saveTodo.getTitle(),
                 saveTodo.getContent(),
                 saveTodo.getCreatedAt(),
@@ -31,14 +38,14 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public List<TodoGetResponse> getAll() {
-        List<Todo> todos = todoRepository.findAll();
+    public List<TodoGetResponse> getAll(Long userId) {
+        List<Todo> todos = todoRepository.findByUserId(userId);
         List<TodoGetResponse> dtos = new ArrayList<>();
 
         for (Todo todo : todos) {
             dtos.add(new TodoGetResponse(
                     todo.getId(),
-                    todo.getUsername(),
+                    todo.getUser(),
                     todo.getTitle(),
                     todo.getContent(),
                     todo.getCreatedAt(),
@@ -50,14 +57,14 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public TodoGetResponse getOne(Long todoId) {
-        Todo todo = todoRepository.findById(todoId).orElseThrow(
+    public TodoGetResponse getOne(Long userId, Long todoId) {
+        Todo todo = todoRepository.findByIdAndUserId(todoId, userId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
         );
 
         return new TodoGetResponse(
                 todo.getId(),
-                todo.getUsername(),
+                todo.getUser(),
                 todo.getTitle(),
                 todo.getContent(),
                 todo.getCreatedAt(),
@@ -65,15 +72,15 @@ public class TodoService {
     }
 
     @Transactional
-    public TodoUpdateResponse update(Long todoId, TodoUpdateRequest request) {
-        Todo todo = todoRepository.findById(todoId).orElseThrow(
+    public TodoUpdateResponse update(Long userId, Long todoId, TodoUpdateRequest request) {
+        Todo todo = todoRepository.findByIdAndUserId(todoId, userId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
         );
 
-        todo.updateTodo(request.getUsername(), request.getTitle(), request.getContent());
+        todo.updateTodo(request.getTitle(), request.getContent());
         return new TodoUpdateResponse(
                 todo.getId(),
-                todo.getUsername(),
+                todo.getUser(),
                 todo.getTitle(),
                 todo.getContent(),
                 todo.getCreatedAt(),
@@ -81,8 +88,8 @@ public class TodoService {
     }
 
     @Transactional
-    public void delete(Long todoId) {
-        Todo todo = todoRepository.findById(todoId).orElseThrow(
+    public void delete(Long userId, Long todoId) {
+        Todo todo = todoRepository.findByIdAndUserId(todoId, userId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
         );
 

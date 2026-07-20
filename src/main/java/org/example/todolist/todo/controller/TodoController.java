@@ -14,38 +14,44 @@ public class TodoController {
 
     private final TodoService todoService;
 
-    @PostMapping("/todos")
+    @PostMapping("users/{userId}/todos")
     public ResponseEntity<TodoCreateResponse> create(
+            @PathVariable Long userId,
             @RequestBody TodoCreateRequest request
     ) {
-        return ResponseEntity.ok(todoService.save(request));
+        return ResponseEntity.ok(todoService.save(userId, request));
     }
 
-    @GetMapping("/todos")
-    public ResponseEntity<List<TodoGetResponse>> getAll() {
-        return ResponseEntity.ok(todoService.getAll());
+    @GetMapping("users/{userId}/todos")
+    public ResponseEntity<List<TodoGetResponse>> getAll(
+            @PathVariable Long userId
+    ) {
+        return ResponseEntity.ok(todoService.getAll(userId));
     }
 
-    @GetMapping("/todos/{todoId}")
+    @GetMapping("users/{userId}/todos/{todoId}")
     public ResponseEntity<TodoGetResponse> getOne(
+            @PathVariable Long userId,
             @PathVariable Long todoId
     ) {
-        return ResponseEntity.ok(todoService.getOne(todoId));
+        return ResponseEntity.ok(todoService.getOne(userId, todoId));
     }
 
-    @PutMapping("/todos/{todoId}")
+    @PutMapping("users/{userId}/todos/{todoId}")
     public ResponseEntity<TodoUpdateResponse> update(
+            @PathVariable Long userId,
             @PathVariable Long todoId,
             @RequestBody TodoUpdateRequest request
     ) {
-        return ResponseEntity.ok(todoService.update(todoId, request));
+        return ResponseEntity.ok(todoService.update(userId, todoId, request));
     }
 
-    @DeleteMapping("/todos/{todoId}")
-    public ResponseEntity<List<TodoGetResponse>> delete(
+    @DeleteMapping("users/{userId}/todos/{todoId}")
+    public ResponseEntity<Void> delete(
+            @PathVariable Long userId,
             @PathVariable Long todoId
     ) {
-        todoService.delete(todoId);
-        return ResponseEntity.ok(todoService.getAll());
+        todoService.delete(userId, todoId);
+        return ResponseEntity.ok().build();
     }
 }
