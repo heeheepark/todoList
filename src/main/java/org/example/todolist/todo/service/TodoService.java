@@ -52,7 +52,7 @@ public class TodoService {
     @Transactional(readOnly = true)
     public TodoGetResponse getOne(Long todoId) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 할일 입니다.")
+                () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
         );
 
         return new TodoGetResponse(
@@ -67,7 +67,7 @@ public class TodoService {
     @Transactional
     public TodoUpdateResponse update(Long todoId, TodoUpdateRequest request) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 할일 입니다.")
+                () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
         );
 
         todo.updateTodo(request.getUsername(), request.getTitle(), request.getContent());
@@ -78,5 +78,14 @@ public class TodoService {
                 todo.getContent(),
                 todo.getCreatedAt(),
                 todo.getModifiedAt());
+    }
+
+    @Transactional
+    public void delete(Long todoId) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
+        );
+
+        todoRepository.delete(todo);
     }
 }
