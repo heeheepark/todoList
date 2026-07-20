@@ -3,6 +3,7 @@ package org.example.todolist.user.service;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.user.dto.*;
 import org.example.todolist.user.entity.User;
+import org.example.todolist.user.exception.UserNotFoundException;
 import org.example.todolist.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +47,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserGetResponse getOne(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 사용자 입니다.")
+                () -> new UserNotFoundException("존재하지 않는 사용자 입니다.")
         );
 
         return new UserGetResponse(user.getId(),
@@ -59,7 +60,7 @@ public class UserService {
     @Transactional
     public UserUpdateResponse update(Long userId, UserUpdateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 사용자 입니다.")
+                () -> new UserNotFoundException("존재하지 않는 사용자 입니다.")
         );
 
         user.updateUser(request.getName(), request.getEmail(), request.getPassword());
@@ -75,7 +76,7 @@ public class UserService {
     @Transactional
     public void delete(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 사용자 입니다.")
+                () -> new UserNotFoundException("존재하지 않는 사용자 입니다.")
         );
 
         userRepository.delete(user);

@@ -3,8 +3,10 @@ package org.example.todolist.todo.service;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.entity.Todo;
+import org.example.todolist.todo.exception.TodoNotFoundException;
 import org.example.todolist.todo.repository.TodoRepository;
 import org.example.todolist.user.entity.User;
+import org.example.todolist.user.exception.UserNotFoundException;
 import org.example.todolist.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +24,7 @@ public class TodoService {
     @Transactional
     public TodoCreateResponse save(Long userId, TodoCreateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 유저입니다")
+                () -> new UserNotFoundException("존재하지 않는 유저입니다")
         );
 
         Todo todo = new Todo(user, request.getTitle(), request.getContent());
@@ -59,7 +61,7 @@ public class TodoService {
     @Transactional(readOnly = true)
     public TodoGetResponse getOne(Long userId, Long todoId) {
         Todo todo = todoRepository.findByIdAndUserId(todoId, userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
+                () -> new TodoNotFoundException("존재하지 않는 일정 입니다.")
         );
 
         return new TodoGetResponse(
@@ -74,7 +76,7 @@ public class TodoService {
     @Transactional
     public TodoUpdateResponse update(Long userId, Long todoId, TodoUpdateRequest request) {
         Todo todo = todoRepository.findByIdAndUserId(todoId, userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
+                () -> new TodoNotFoundException("존재하지 않는 일정 입니다.")
         );
 
         todo.updateTodo(request.getTitle(), request.getContent());
@@ -90,7 +92,7 @@ public class TodoService {
     @Transactional
     public void delete(Long userId, Long todoId) {
         Todo todo = todoRepository.findByIdAndUserId(todoId, userId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 일정 입니다.")
+                () -> new TodoNotFoundException("존재하지 않는 일정 입니다.")
         );
 
         todoRepository.delete(todo);
