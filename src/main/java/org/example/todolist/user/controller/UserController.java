@@ -2,6 +2,7 @@ package org.example.todolist.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.user.dto.*;
+import org.example.todolist.user.repository.UserRepository;
 import org.example.todolist.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @PostMapping("/users")
     public ResponseEntity<UserCreateRespone> create(
@@ -39,5 +41,13 @@ public class UserController {
             @RequestBody UserUpdateRequest request
     ) {
         return ResponseEntity.ok(userService.update(userId, request));
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<List<UserGetResponse>> delete(
+            @PathVariable Long userId
+    ) {
+        userService.delete(userId);
+        return ResponseEntity.ok(userService.getAll());
     }
 }

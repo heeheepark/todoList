@@ -71,4 +71,13 @@ public class UserService {
                 user.getCreatedAt()
         );
     }
+
+    @Transactional
+    public void delete(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 없습니다.")
+        );
+
+        userRepository.delete(user);
+    }
 }
