@@ -17,4 +17,10 @@ public class Todo extends BaseEntity {
     private String username;
     private String title;
     private String content;
+
+    public Todo(String username, String title, String content) {
+        this.username = username;
+        this.title = title;
+        this.content = content;
+    }
 }
