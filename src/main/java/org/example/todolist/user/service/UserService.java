@@ -3,10 +3,13 @@ package org.example.todolist.user.service;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.user.dto.UserCreateRequest;
 import org.example.todolist.user.dto.UserCreateRespone;
+import org.example.todolist.user.dto.UserGetResponse;
 import org.example.todolist.user.entity.User;
 import org.example.todolist.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +28,33 @@ public class UserService {
                 saveUser.getEmail(),
                 saveUser.getCreatedAt(),
                 saveUser.getModifiedAt());
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserGetResponse> getAll() {
+        List<User> users = userRepository.findAll();
+
+        return users.stream().map(user -> (
+                new UserGetResponse(
+                        user.getId(),
+                        user.getName(),
+                        user.getEmail(),
+                        user.getCreatedAt(),
+                        user.getModifiedAt()
+                ))).toList();
+
+    }
+
+    @Transactional(readOnly = true)
+    public UserGetResponse getOne(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 없습니다.")
+        );
+
+        return new UserGetResponse(user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getModifiedAt());
     }
 }
