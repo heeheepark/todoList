@@ -1,6 +1,7 @@
 package org.example.todolist.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.todolist.config.PasswordEncoder;
 import org.example.todolist.user.dto.*;
 import org.example.todolist.user.entity.User;
 import org.example.todolist.user.exception.UserNotFoundException;
@@ -18,7 +19,10 @@ public class UserService {
 
     @Transactional
     public UserCreateRespone save(UserCreateRequest request) {
-        User user = new User(request.getName(), request.getEmail(), request.getPassword());
+        PasswordEncoder passwordEncoder = new PasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+        User user = new User(request.getName(), request.getEmail(), encodedPassword);
         User saveUser = userRepository.save(user);
 
         return new UserCreateRespone(
@@ -63,7 +67,10 @@ public class UserService {
                 () -> new UserNotFoundException("존재하지 않는 사용자 입니다.")
         );
 
-        user.updateUser(request.getName(), request.getEmail(), request.getPassword());
+        PasswordEncoder passwordEncoder = new PasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+        user.updateUser(request.getName(), request.getEmail(), encodedPassword);
         return new UserUpdateResponse(
                 user.getId(),
                 user.getName(),
