@@ -1,9 +1,7 @@
 package org.example.todolist.todo.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.todolist.todo.dto.TodoCreateRequest;
-import org.example.todolist.todo.dto.TodoCreateResponse;
-import org.example.todolist.todo.dto.TodoGetResponse;
+import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.entity.Todo;
 import org.example.todolist.todo.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -58,6 +56,22 @@ public class TodoService {
         );
 
         return new TodoGetResponse(
+                todo.getId(),
+                todo.getUsername(),
+                todo.getTitle(),
+                todo.getContent(),
+                todo.getCreatedAt(),
+                todo.getModifiedAt());
+    }
+
+    @Transactional
+    public TodoUpdateResponse update(Long todoId, TodoUpdateRequest request) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 할일 입니다.")
+        );
+
+        todo.updateTodo(request.getUsername(), request.getTitle(), request.getContent());
+        return new TodoUpdateResponse(
                 todo.getId(),
                 todo.getUsername(),
                 todo.getTitle(),

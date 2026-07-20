@@ -1,9 +1,7 @@
 package org.example.todolist.todo.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.todolist.todo.dto.TodoCreateRequest;
-import org.example.todolist.todo.dto.TodoCreateResponse;
-import org.example.todolist.todo.dto.TodoGetResponse;
+import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.service.TodoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +31,13 @@ public class TodoController {
             @PathVariable Long todoId
     ) {
         return ResponseEntity.ok(todoService.getOne(todoId));
+    }
+
+    @PutMapping("/todos/{todoId}")
+    public ResponseEntity<TodoUpdateResponse> update(
+            @PathVariable Long todoId,
+            @RequestBody TodoUpdateRequest request
+    ) {
+        return ResponseEntity.ok(todoService.update(todoId, request));
     }
 }

@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Todo extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -19,6 +20,12 @@ public class Todo extends BaseEntity {
     private String content;
 
     public Todo(String username, String title, String content) {
+        this.username = username;
+        this.title = title;
+        this.content = content;
+    }
+
+    public void updateTodo(String username, String title, String content) {
         this.username = username;
         this.title = title;
         this.content = content;
