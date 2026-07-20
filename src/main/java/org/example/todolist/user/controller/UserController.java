@@ -1,5 +1,6 @@
 package org.example.todolist.user.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.user.dto.*;
 import org.example.todolist.user.repository.UserRepository;
@@ -18,7 +19,7 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserCreateRespone> create(
-            @RequestBody UserCreateRequest request
+            @Valid @RequestBody UserCreateRequest request
     ) {
         return ResponseEntity.ok(userService.save(request));
     }

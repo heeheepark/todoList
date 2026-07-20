@@ -17,7 +17,7 @@ public class UserService {
 
     @Transactional
     public UserCreateRespone save(UserCreateRequest request) {
-        User user = new User(request.getName(), request.getEmail());
+        User user = new User(request.getName(), request.getEmail(), request.getPassword());
         User saveUser = userRepository.save(user);
 
         return new UserCreateRespone(
@@ -62,7 +62,7 @@ public class UserService {
                 () -> new IllegalArgumentException("존재하지 않는 사용자 입니다.")
         );
 
-        user.updateUser(request.getName(), request.getEmail());
+        user.updateUser(request.getName(), request.getEmail(), request.getPassword());
         return new UserUpdateResponse(
                 user.getId(),
                 user.getName(),
