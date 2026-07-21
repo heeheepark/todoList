@@ -438,4 +438,4 @@ DELETE users/{userId}/todos/{todoId}/comments/{commentId}
 
 ## ERD
 
-(ERD 이미지 첨부)
+![ERD](./src/main/resources/static/images/erd.png)
