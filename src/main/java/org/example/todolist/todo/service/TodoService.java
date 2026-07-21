@@ -42,7 +42,7 @@ public class TodoService {
 
     @Transactional(readOnly = true)
     public Page<TodoPagingResponse> getAll(Long userId, Pageable pageable) {
-        return todoRepository.findByUserId(userId, pageable)
+        return todoRepository.findByUserIdOrderByModifiedAtDesc(userId, pageable)
                 .map(todo -> new TodoPagingResponse(
                         todo.getId(),
                         todo.getTitle(),
