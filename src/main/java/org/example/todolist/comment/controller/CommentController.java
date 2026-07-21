@@ -52,12 +52,12 @@ public class CommentController {
     }
 
     @DeleteMapping("/users/{userId}/todos/{todoId}/comments/{commentId}")
-    public ResponseEntity<List<CommentGetResponse>> delete(
+    public ResponseEntity<Void> delete(
             @PathVariable Long userId,
             @PathVariable Long todoId,
             @PathVariable Long commentId
     ) {
         commentService.delete(userId, todoId, commentId);
-        return ResponseEntity.ok(commentService.getAll(userId, todoId));
+        return ResponseEntity.ok().build();
     }
 }
