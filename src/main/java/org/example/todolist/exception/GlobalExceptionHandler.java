@@ -1,5 +1,6 @@
 package org.example.todolist.exception;
 
+import org.example.todolist.comment.exception.CommentNotFoundException;
 import org.example.todolist.todo.exception.TodoNotFoundException;
 import org.example.todolist.user.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,14 @@ public class GlobalExceptionHandler {
     // UserNotFoundException 커스텀 에러 핸들링
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<String> handleServiceException(UserNotFoundException ex) {
+        return ResponseEntity
+                .status(ex.getStatus())
+                .body(ex.getMessage());
+    }
+
+    // CommentNotFoundException 커스텀 에러 핸들링
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<String> handleServiceException(CommentNotFoundException ex) {
         return ResponseEntity
                 .status(ex.getStatus())
                 .body(ex.getMessage());

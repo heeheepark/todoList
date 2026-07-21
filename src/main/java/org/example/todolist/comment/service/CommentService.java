@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.comment.dto.*;
 import org.example.todolist.comment.entity.Comment;
+import org.example.todolist.comment.exception.CommentNotFoundException;
 import org.example.todolist.comment.repository.CommentRepository;
 import org.example.todolist.todo.entity.Todo;
 import org.example.todolist.todo.exception.TodoNotFoundException;
@@ -64,7 +65,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public CommentGetResponse getOne(Long userId, Long todoId, Long commentId) {
         Comment comment = commentRepository.findByIdAndUserIdAndTodoId(commentId, userId, todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 댓글 입니다.")
+                () -> new CommentNotFoundException("존재하지 않는 댓글 입니다.")
         );
 
         return new CommentGetResponse(
@@ -80,7 +81,7 @@ public class CommentService {
     @Transactional
     public CommentUpdateResponse update(Long userId, Long todoId, Long commentId, CommentUpdateRequest request) {
         Comment comment = commentRepository.findByIdAndUserIdAndTodoId(commentId, userId, todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 댓글 입니다.")
+                () -> new CommentNotFoundException("존재하지 않는 댓글 입니다.")
         );
 
         comment.updateComment(request.getContent());
@@ -98,7 +99,7 @@ public class CommentService {
     @Transactional
     public void delete(Long userId, Long todoId, Long commentId) {
         Comment comment = commentRepository.findByIdAndUserIdAndTodoId(commentId, userId, todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 댓글 입니다.")
+                () -> new CommentNotFoundException("존재하지 않는 댓글 입니다.")
         );
 
         commentRepository.delete(comment);
