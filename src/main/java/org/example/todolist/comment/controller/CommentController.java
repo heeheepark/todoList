@@ -50,4 +50,14 @@ public class CommentController {
     ) {
         return ResponseEntity.ok(commentService.update(userId, todoId, commentId, request));
     }
+
+    @DeleteMapping("/users/{userId}/todos/{todoId}/comments/{commentId}")
+    public ResponseEntity<List<CommentGetResponse>> delete(
+            @PathVariable Long userId,
+            @PathVariable Long todoId,
+            @PathVariable Long commentId
+    ) {
+        commentService.delete(userId, todoId, commentId);
+        return ResponseEntity.ok(commentService.getAll(userId, todoId));
+    }
 }

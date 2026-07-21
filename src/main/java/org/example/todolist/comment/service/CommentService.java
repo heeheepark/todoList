@@ -94,4 +94,13 @@ public class CommentService {
                 comment.getModifiedAt()
         );
     }
+
+    @Transactional
+    public void delete(Long userId, Long todoId, Long commentId) {
+        Comment comment = commentRepository.findByIdAndUserIdAndTodoId(commentId, userId, todoId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 댓글 입니다.")
+        );
+
+        commentRepository.delete(comment);
+    }
 }
