@@ -2,9 +2,7 @@ package org.example.todolist.comment.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.todolist.comment.dto.CommentCreateRequest;
-import org.example.todolist.comment.dto.CommentCreateResponse;
-import org.example.todolist.comment.dto.CommentGetResponse;
+import org.example.todolist.comment.dto.*;
 import org.example.todolist.comment.entity.Comment;
 import org.example.todolist.comment.repository.CommentRepository;
 import org.example.todolist.todo.entity.Todo;
@@ -70,6 +68,24 @@ public class CommentService {
         );
 
         return new CommentGetResponse(
+                comment.getId(),
+                comment.getContent(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt(),
+                comment.getUser(),
+                comment.getTodo()
+        );
+    }
+
+    @Transactional
+    public CommentUpdateResponse update(Long userId, Long todoId, Long commentId, CommentUpdateRequest request) {
+        Comment comment = commentRepository.findByIdAndUserIdAndTodoId(commentId, userId, todoId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 댓글 입니다.")
+        );
+
+        comment.updateComment(request.getContent());
+
+        return new CommentUpdateResponse(
                 comment.getId(),
                 comment.getContent(),
                 comment.getCreatedAt(),
