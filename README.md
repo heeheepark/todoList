@@ -2,6 +2,10 @@
 
 인프런 부트캠프(Spring 과정) 개인 과제로 구현한 일정 관리 프로젝트입니다.
 
+## ERD
+
+![ERD](./src/main/resources/static/images/erd.png)
+
 ## API 명세서
 
 ### User API
@@ -436,6 +440,3 @@ DELETE users/{userId}/todos/{todoId}/comments/{commentId}
 ```json
 ```
 
-## ERD
-
-![ERD](./src/main/resources/static/images/erd.png)
