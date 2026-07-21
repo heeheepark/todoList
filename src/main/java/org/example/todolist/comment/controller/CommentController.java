@@ -4,12 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.comment.dto.CommentCreateRequest;
 import org.example.todolist.comment.dto.CommentCreateResponse;
+import org.example.todolist.comment.dto.CommentGetResponse;
 import org.example.todolist.comment.service.CommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +24,22 @@ public class CommentController {
             @Valid @RequestBody CommentCreateRequest request
     ) {
         return ResponseEntity.ok(commentService.create(userId, todoId, request));
+    }
+
+    @GetMapping("users/{userId}/todos/{todoId}/comments")
+    public ResponseEntity<List<CommentGetResponse>> getAll(
+            @PathVariable Long userId,
+            @PathVariable Long todoId
+    ) {
+        return ResponseEntity.ok(commentService.getAll(userId, todoId));
+    }
+
+    @GetMapping("/users/{userId}/todos/{todoId}/comments/{commentId}")
+    public ResponseEntity<CommentGetResponse> getOne(
+            @PathVariable Long userId,
+            @PathVariable Long todoId,
+            @PathVariable Long commentId
+    ) {
+        return ResponseEntity.ok(commentService.getOne(userId, todoId, commentId));
     }
 }

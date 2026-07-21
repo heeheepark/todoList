@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.comment.dto.CommentCreateRequest;
 import org.example.todolist.comment.dto.CommentCreateResponse;
+import org.example.todolist.comment.dto.CommentGetResponse;
 import org.example.todolist.comment.entity.Comment;
 import org.example.todolist.comment.repository.CommentRepository;
 import org.example.todolist.todo.entity.Todo;
@@ -14,6 +15,8 @@ import org.example.todolist.user.exception.UserNotFoundException;
 import org.example.todolist.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +39,43 @@ public class CommentService {
         Comment comment = new Comment(request.getContent(), user, todo);
         Comment saveComment = commentRepository.save(comment);
 
-        return new CommentCreateResponse(saveComment.getId(), saveComment.getContent(), saveComment.getUser(), saveComment.getTodo());
+        return new CommentCreateResponse(
+                saveComment.getId(),
+                saveComment.getContent(),
+                saveComment.getCreatedAt(),
+                saveComment.getModifiedAt(),
+                saveComment.getUser(),
+                saveComment.getTodo()
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentGetResponse> getAll(Long userId, Long todoId) {
+        List<Comment> comments = commentRepository.findByUserIdAndTodoId(userId, todoId);
+        return comments.stream()
+                .map(comment -> new CommentGetResponse(
+                        comment.getId(),
+                        comment.getContent(),
+                        comment.getCreatedAt(),
+                        comment.getModifiedAt(),
+                        comment.getUser(),
+                        comment.getTodo()
+                )).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public CommentGetResponse getOne(Long userId, Long todoId, Long commentId) {
+        Comment comment = commentRepository.findByIdAndUserIdAndTodoId(commentId, userId, todoId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 댓글 입니다.")
+        );
+
+        return new CommentGetResponse(
+                comment.getId(),
+                comment.getContent(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt(),
+                comment.getUser(),
+                comment.getTodo()
+        );
     }
 }

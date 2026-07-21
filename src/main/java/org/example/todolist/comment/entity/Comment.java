@@ -12,7 +12,7 @@ import org.example.todolist.user.entity.User;
 @Table(name = "comments")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,7 +7,7 @@ import org.example.todolist.user.entity.User;
 import java.time.LocalDateTime;
 
 @Getter
-public class CommentCreateResponse {
+public class CommentGetResponse {
     private final Long id;
     private final String content;
     private final LocalDateTime createdAt;
@@ -15,7 +15,7 @@ public class CommentCreateResponse {
     private final User user;
     private final Todo todo;
 
-    public CommentCreateResponse(Long id, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, User user, Todo todo) {
+    public CommentGetResponse(Long id, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, User user, Todo todo) {
         this.id = id;
         this.content = content;
         this.createdAt = createdAt;
