@@ -1,6 +1,7 @@
 package org.example.todolist.todo.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.todolist.comment.repository.CommentRepository;
 import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.entity.Todo;
 import org.example.todolist.todo.exception.TodoNotFoundException;
@@ -19,6 +20,7 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public TodoCreateResponse save(Long userId, TodoCreateRequest request) {
@@ -39,13 +41,14 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TodoGetResponse> getAll(Long userId, Pageable pageable) {
+    public Page<TodoPagingResponse> getAll(Long userId, Pageable pageable) {
         return todoRepository.findByUserId(userId, pageable)
-                .map(todo -> new TodoGetResponse(
+                .map(todo -> new TodoPagingResponse(
                         todo.getId(),
-                        todo.getUser(),
                         todo.getTitle(),
                         todo.getContent(),
+                        commentRepository.countByTodoId(todo.getId()),
+                        todo.getUser().getName(),
                         todo.getCreatedAt(),
                         todo.getModifiedAt()
                 ));

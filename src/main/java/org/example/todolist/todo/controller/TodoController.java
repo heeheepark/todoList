@@ -24,7 +24,7 @@ public class TodoController {
     }
 
     @GetMapping("users/{userId}/todos")
-    public ResponseEntity<Page<TodoGetResponse>> getAll(
+    public ResponseEntity<Page<TodoPagingResponse>> getAll(
             Pageable pageable,
             @PathVariable Long userId
     ) {
