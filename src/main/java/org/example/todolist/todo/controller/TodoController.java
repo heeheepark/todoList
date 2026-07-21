@@ -4,10 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.todolist.todo.dto.*;
 import org.example.todolist.todo.service.TodoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +24,13 @@ public class TodoController {
     }
 
     @GetMapping("users/{userId}/todos")
-    public ResponseEntity<List<TodoGetResponse>> getAll(
+    public ResponseEntity<Page<TodoGetResponse>> getAll(
+            Pageable pageable,
             @PathVariable Long userId
     ) {
-        return ResponseEntity.ok(todoService.getAll(userId));
+        System.out.println(pageable);
+
+        return ResponseEntity.ok(todoService.getAll(userId, pageable));
     }
 
     @GetMapping("users/{userId}/todos/{todoId}")

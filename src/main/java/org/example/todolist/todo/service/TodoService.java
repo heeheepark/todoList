@@ -8,11 +8,10 @@ import org.example.todolist.todo.repository.TodoRepository;
 import org.example.todolist.user.entity.User;
 import org.example.todolist.user.exception.UserNotFoundException;
 import org.example.todolist.user.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,22 +39,16 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public List<TodoGetResponse> getAll(Long userId) {
-        List<Todo> todos = todoRepository.findByUserId(userId);
-        List<TodoGetResponse> dtos = new ArrayList<>();
-
-        for (Todo todo : todos) {
-            dtos.add(new TodoGetResponse(
-                    todo.getId(),
-                    todo.getUser(),
-                    todo.getTitle(),
-                    todo.getContent(),
-                    todo.getCreatedAt(),
-                    todo.getModifiedAt()
-            ));
-        }
-
-        return dtos;
+    public Page<TodoGetResponse> getAll(Long userId, Pageable pageable) {
+        return todoRepository.findByUserId(userId, pageable)
+                .map(todo -> new TodoGetResponse(
+                        todo.getId(),
+                        todo.getUser(),
+                        todo.getTitle(),
+                        todo.getContent(),
+                        todo.getCreatedAt(),
+                        todo.getModifiedAt()
+                ));
     }
 
     @Transactional(readOnly = true)
