@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 public class CommentCreateResponse {
     private final Long id;
     private final String content;
-    private final LocalDateTime createdAt;
-    private final LocalDateTime modifiedAt;
     private final User user;
     private final Todo todo;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
 
-    public CommentCreateResponse(Long id, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, User user, Todo todo) {
+    public CommentCreateResponse(Long id, String content, User user, Todo todo, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.content = content;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
         this.user = user;
         this.todo = todo;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
     }
 }

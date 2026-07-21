@@ -40,10 +40,10 @@ public class CommentService {
         return new CommentCreateResponse(
                 saveComment.getId(),
                 saveComment.getContent(),
-                saveComment.getCreatedAt(),
-                saveComment.getModifiedAt(),
                 saveComment.getUser(),
-                saveComment.getTodo()
+                saveComment.getTodo(),
+                saveComment.getCreatedAt(),
+                saveComment.getModifiedAt()
         );
     }
 
@@ -54,10 +54,10 @@ public class CommentService {
                 .map(comment -> new CommentGetResponse(
                         comment.getId(),
                         comment.getContent(),
-                        comment.getCreatedAt(),
-                        comment.getModifiedAt(),
                         comment.getUser(),
-                        comment.getTodo()
+                        comment.getTodo(),
+                        comment.getCreatedAt(),
+                        comment.getModifiedAt()
                 )).toList();
     }
 
@@ -70,10 +70,10 @@ public class CommentService {
         return new CommentGetResponse(
                 comment.getId(),
                 comment.getContent(),
-                comment.getCreatedAt(),
-                comment.getModifiedAt(),
                 comment.getUser(),
-                comment.getTodo()
+                comment.getTodo(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt()
         );
     }
 
@@ -88,10 +88,10 @@ public class CommentService {
         return new CommentUpdateResponse(
                 comment.getId(),
                 comment.getContent(),
-                comment.getCreatedAt(),
-                comment.getModifiedAt(),
                 comment.getUser(),
-                comment.getTodo()
+                comment.getTodo(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt()
         );
     }
 }
