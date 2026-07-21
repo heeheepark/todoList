@@ -28,4 +28,10 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id")
     private Todo todo;
+
+    public Comment(String content, User user, Todo todo) {
+        this.content = content;
+        this.user = user;
+        this.todo = todo;
+    }
 }
