@@ -250,31 +250,13 @@ POST users/{userId}/todos/{todoId}/comments
 {
     "id": 1,
     "content": "화이팅입니다!",
-    "user": {
-        "name": "홍길동",
-        "email": "hong@test.com",
-        "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-        "createdAt": "2026-07-21T04:42:52.086787",
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:42:52.086787"
-    },
-    "todo": {
-        "user": {
-            "name": "홍길동",
-            "email": "hong@test.com",
-            "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-            "createdAt": "2026-07-21T04:42:52.086787",
-            "id": 1,
-            "modifiedAt": "2026-07-21T04:42:52.086787"
-        },
-        "title": "공부하기",
-        "content": "자바 공부",
-        "createdAt": "2026-07-21T04:42:55.397084",
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:42:55.397084"
-    },
-    "createdAt": "2026-07-21T04:43:14.56336",
-    "modifiedAt": "2026-07-21T04:43:14.56336"
+    "userId": 1,
+    "username": "홍길동",
+    "todoId": 1,
+    "todoTitle": "공부하기",
+    "todoContent": "Java 공부",
+    "createdAt": "2026-07-22T05:15:57.921191",
+    "modifiedAt": "2026-07-22T05:15:57.921191"
 }
 ```
 
@@ -289,34 +271,13 @@ GET users/{userId}/todos/{todoId}/comments
     {
         "id": 1,
         "content": "화이팅입니다!",
-        "user": {
-            "name": "홍길동",
-            "email": "hong@test.com",
-            "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-            "createdAt": "2026-07-21T04:42:52.086787",
-            "hibernateLazyInitializer": {},
-            "id": 1,
-            "modifiedAt": "2026-07-21T04:42:52.086787"
-        },
-        "todo": {
-            "user": {
-                "name": "홍길동",
-                "email": "hong@test.com",
-                "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-                "createdAt": "2026-07-21T04:42:52.086787",
-                "hibernateLazyInitializer": {},
-                "id": 1,
-                "modifiedAt": "2026-07-21T04:42:52.086787"
-            },
-            "title": "공부하기",
-            "content": "자바 공부",
-            "createdAt": "2026-07-21T04:42:55.397084",
-            "hibernateLazyInitializer": {},
-            "id": 1,
-            "modifiedAt": "2026-07-21T04:42:55.397084"
-        },
-        "createdAt": "2026-07-21T04:43:14.56336",
-        "modifiedAt": "2026-07-21T04:43:14.56336"
+        "userId": 1,
+        "username": "홍길동",
+        "todoId": 1,
+        "todoTitle": "공부하기",
+        "todoContent": "Java 공부",
+        "createdAt": "2026-07-22T05:15:57.921191",
+        "modifiedAt": "2026-07-22T05:15:57.921191"
     }
 ]
 ```
@@ -331,34 +292,13 @@ GET users/{userId}/todos/{todoId}/comments/{commentId}
 {
     "id": 1,
     "content": "화이팅입니다!",
-    "user": {
-        "name": "홍길동",
-        "email": "hong@test.com",
-        "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-        "createdAt": "2026-07-21T04:42:52.086787",
-        "hibernateLazyInitializer": {},
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:42:52.086787"
-    },
-    "todo": {
-        "user": {
-            "name": "홍길동",
-            "email": "hong@test.com",
-            "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-            "createdAt": "2026-07-21T04:42:52.086787",
-            "hibernateLazyInitializer": {},
-            "id": 1,
-            "modifiedAt": "2026-07-21T04:42:52.086787"
-        },
-        "title": "공부하기",
-        "content": "자바 공부",
-        "createdAt": "2026-07-21T04:42:55.397084",
-        "hibernateLazyInitializer": {},
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:42:55.397084"
-    },
-    "createdAt": "2026-07-21T04:43:14.56336",
-    "modifiedAt": "2026-07-21T04:43:14.56336"
+    "userId": 1,
+    "username": "홍길동",
+    "todoId": 1,
+    "todoTitle": "공부하기",
+    "todoContent": "자바 공부",
+    "createdAt": "2026-07-22T05:15:57.921191",
+    "modifiedAt": "2026-07-22T05:15:57.921191"
 }
 ```
 
@@ -379,34 +319,13 @@ PUT users/{userId}/todos/{todoId}/comments/{commentId}
 {
     "id": 1,
     "content": "열심히하세요!",
-    "user": {
-        "name": "홍길동",
-        "email": "hong@test.com",
-        "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-        "createdAt": "2026-07-21T04:42:52.086787",
-        "hibernateLazyInitializer": {},
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:42:52.086787"
-    },
-    "todo": {
-        "user": {
-            "name": "홍길동",
-            "email": "hong@test.com",
-            "password": "$2a$04$T6Fem1vPSI17ZtHKmtrMn.RjTzKZWyiYYyHWtVkRgRYtyC3/kWye.",
-            "createdAt": "2026-07-21T04:42:52.086787",
-            "hibernateLazyInitializer": {},
-            "id": 1,
-            "modifiedAt": "2026-07-21T04:42:52.086787"
-        },
-        "title": "공부하기",
-        "content": "자바 공부",
-        "createdAt": "2026-07-21T04:42:55.397084",
-        "hibernateLazyInitializer": {},
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:42:55.397084"
-    },
-    "createdAt": "2026-07-21T04:43:14.56336",
-    "modifiedAt": "2026-07-21T04:43:14.56336"
+    "userId": 1,
+    "username": "홍길동",
+    "todoId": 1,
+    "todoTitle": "공부하기",
+    "todoContent": "Java 공부",
+    "createdAt": "2026-07-22T05:15:57.921191",
+    "modifiedAt": "2026-07-22T05:15:57.921191"
 }
 ```
 
