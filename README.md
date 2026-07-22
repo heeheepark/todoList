@@ -4,7 +4,7 @@
 
 ## ERD
 
-![ERD](./src/main/resources/static/images/erd.png)
+
 
 ## API 명세서
 
