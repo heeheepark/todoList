@@ -41,8 +41,11 @@ public class CommentService {
         return new CommentCreateResponse(
                 saveComment.getId(),
                 saveComment.getContent(),
-                saveComment.getUser(),
-                saveComment.getTodo(),
+                saveComment.getUser().getId(),
+                saveComment.getUser().getName(),
+                saveComment.getTodo().getId(),
+                saveComment.getTodo().getTitle(),
+                saveComment.getTodo().getContent(),
                 saveComment.getCreatedAt(),
                 saveComment.getModifiedAt()
         );
@@ -55,8 +58,11 @@ public class CommentService {
                 .map(comment -> new CommentGetResponse(
                         comment.getId(),
                         comment.getContent(),
-                        comment.getUser(),
-                        comment.getTodo(),
+                        comment.getUser().getId(),
+                        comment.getUser().getName(),
+                        comment.getTodo().getId(),
+                        comment.getTodo().getTitle(),
+                        comment.getTodo().getContent(),
                         comment.getCreatedAt(),
                         comment.getModifiedAt()
                 )).toList();
@@ -71,8 +77,11 @@ public class CommentService {
         return new CommentGetResponse(
                 comment.getId(),
                 comment.getContent(),
-                comment.getUser(),
-                comment.getTodo(),
+                comment.getUser().getId(),
+                comment.getUser().getName(),
+                comment.getTodo().getId(),
+                comment.getTodo().getTitle(),
+                comment.getTodo().getContent(),
                 comment.getCreatedAt(),
                 comment.getModifiedAt()
         );
@@ -89,8 +98,11 @@ public class CommentService {
         return new CommentUpdateResponse(
                 comment.getId(),
                 comment.getContent(),
-                comment.getUser(),
-                comment.getTodo(),
+                comment.getUser().getId(),
+                comment.getUser().getName(),
+                comment.getTodo().getId(),
+                comment.getTodo().getTitle(),
+                comment.getTodo().getContent(),
                 comment.getCreatedAt(),
                 comment.getModifiedAt()
         );
