@@ -2,6 +2,10 @@
 
 인프런 부트캠프(Spring 과정) 개인 과제로 구현한 일정 관리 프로젝트입니다.
 
+## ERD
+
+![ERD](./src/main/resources/static/images/erd.png)
+
 ## API 명세서
 
 ### User API
@@ -118,18 +122,12 @@ POST /users/{userId}/todos
 ```json
 {
     "id": 1,
-    "user": {
-        "name": "홍길동",
-        "email": "test@gmail.com",
-        "password": "$2a$04$2Y.Ns1osue7LmqDIrKcxyuadM4rXWZz23D/lop29L2eLwhRqMTz4y",
-        "createdAt": "2026-07-21T04:05:12.526616",
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:13:49.417135"
-    },
     "title": "공부하기",
-    "content": "자바 공부",
-    "createdAt": "2026-07-21T04:26:33.805624",
-    "modifiedAt": "2026-07-21T04:26:33.805624"
+    "content": "Java 공부",
+    "userId": 1,
+    "username": "홍길동",
+    "createdAt": "2026-07-22T04:26:33.68305",
+    "modifiedAt": "2026-07-22T04:26:33.68305"
 }
 ```
 
@@ -190,19 +188,12 @@ GET users/{userId}/todos/{todoId}
 ```json
 {
     "id": 1,
-    "user": {
-        "name": "홍길동",
-        "email": "test@gmail.com",
-        "password": "$2a$04$2Y.Ns1osue7LmqDIrKcxyuadM4rXWZz23D/lop29L2eLwhRqMTz4y",
-        "createdAt": "2026-07-21T04:05:12.526616",
-        "hibernateLazyInitializer": {},
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:13:49.417135"
-    },
     "title": "공부하기",
-    "content": "자바 공부",
-    "createdAt": "2026-07-21T04:26:33.805624",
-    "modifiedAt": "2026-07-21T04:26:33.805624"
+    "content": "Java 공부",
+    "userId": 1,
+    "username": "홍길동",
+    "createdAt": "2026-07-22T04:26:33.68305",
+    "modifiedAt": "2026-07-22T04:27:58.086863"
 }
 ```
 
@@ -223,19 +214,12 @@ PUT users/{userId}/todos/{todoId}
 ```json
 {
     "id": 1,
-    "user": {
-        "name": "홍길동",
-        "email": "test@gmail.com",
-        "password": "$2a$04$2Y.Ns1osue7LmqDIrKcxyuadM4rXWZz23D/lop29L2eLwhRqMTz4y",
-        "createdAt": "2026-07-21T04:05:12.526616",
-        "hibernateLazyInitializer": {},
-        "id": 1,
-        "modifiedAt": "2026-07-21T04:13:49.417135"
-    },
     "title": "공부하기",
     "content": "JPA 공부",
-    "createdAt": "2026-07-21T04:26:33.805624",
-    "modifiedAt": "2026-07-21T04:26:33.805624"
+    "userId": 1,
+    "username": "홍길동",
+    "createdAt": "2026-07-22T04:26:33.68305",
+    "modifiedAt": "2026-07-22T04:26:33.68305"
 }
 ```
 
@@ -436,6 +420,3 @@ DELETE users/{userId}/todos/{todoId}/comments/{commentId}
 ```json
 ```
 
-## ERD
-
-(ERD 이미지 첨부)
