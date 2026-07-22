@@ -3,8 +3,7 @@
 인프런 부트캠프(Spring 과정) 개인 과제로 구현한 일정 관리 프로젝트입니다.
 
 ## ERD
-
-
+![ERD](./src/main/resources/static/images/ERD.png)
 
 ## API 명세서
 
