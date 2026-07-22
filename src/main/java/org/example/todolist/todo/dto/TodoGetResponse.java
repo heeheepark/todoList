@@ -1,24 +1,25 @@
 package org.example.todolist.todo.dto;
 
 import lombok.Getter;
-import org.example.todolist.user.entity.User;
 
 import java.time.LocalDateTime;
 
 @Getter
 public class TodoGetResponse {
     private final Long id;
-    private final User user;
     private final String title;
     private final String content;
+    private final Long userId;
+    private final String username;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public TodoGetResponse(Long id, User user, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public TodoGetResponse(Long id, String title, String content, Long userId, String username, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
-        this.user = user;
         this.title = title;
         this.content = content;
+        this.userId = userId;
+        this.username = username;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }

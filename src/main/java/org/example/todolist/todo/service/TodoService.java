@@ -33,9 +33,10 @@ public class TodoService {
 
         return new TodoCreateResponse(
                 saveTodo.getId(),
-                saveTodo.getUser(),
                 saveTodo.getTitle(),
                 saveTodo.getContent(),
+                saveTodo.getUser().getId(),
+                saveTodo.getUser().getName(),
                 saveTodo.getCreatedAt(),
                 saveTodo.getModifiedAt());
     }
@@ -62,9 +63,10 @@ public class TodoService {
 
         return new TodoGetResponse(
                 todo.getId(),
-                todo.getUser(),
                 todo.getTitle(),
                 todo.getContent(),
+                todo.getUser().getId(),
+                todo.getUser().getName(),
                 todo.getCreatedAt(),
                 todo.getModifiedAt());
     }
@@ -78,9 +80,10 @@ public class TodoService {
         todo.updateTodo(request.getTitle(), request.getContent());
         return new TodoUpdateResponse(
                 todo.getId(),
-                todo.getUser(),
                 todo.getTitle(),
                 todo.getContent(),
+                todo.getUser().getId(),
+                todo.getUser().getName(),
                 todo.getCreatedAt(),
                 todo.getModifiedAt());
     }
